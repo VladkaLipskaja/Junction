@@ -21,9 +21,9 @@ namespace STARAAPP.Entities
             builder.Property(t => t.Email).HasColumnName("email");
             builder.Property(t => t.MobilePhone).HasColumnName("mobilephone");
             builder.Property(t => t.Password).HasColumnName("password");
+            builder.Property(t => t.Longitude).HasColumnName("longitude");
+            builder.Property(t => t.Latitude).HasColumnName("latitude");
             builder.Property(t => t.RoleId).HasColumnName("roleid");
-
-            //builder.HasOne(t => t.User).WithMany(t => t.HubToUsers).HasForeignKey(t => t.UserID);
         }
     }
 }

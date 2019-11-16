@@ -14,19 +14,10 @@ namespace STARAAPP.Entities
         /// </summary>
         public Order()
         {
-            //UsersToLocations = new HashSet<UserToLocation>();
-            //Activities = new HashSet<Activity>();
-            //SensorsToReferencePlantData = new HashSet<SensorToReferencePlantData>();
+            OrdersToUsers = new HashSet<OrderToUser>();
         }
 
-        /// <summary>
-        /// Gets or sets the set of hubs.
-        /// </summary>
-        /// <value>
-        /// The hub to users.
-        /// </value>
-        //public virtual ICollection<UserToLocation> UsersToLocations { get; set; }
-        //public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<OrderToUser> OrdersToUsers { get; set; }
     }
 
     /// <summary>
@@ -53,14 +44,14 @@ namespace STARAAPP.Entities
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public string WorkerCommentBefore { get; set; }
-        public string WorkerCommentTimeBefore { get; set; }
+        public int WorkerCommentTimeBefore { get; set; }
         public string WorkerPhotoBefore { get; set; }
         public int? CompletionTime { get; set; }
         public string WorkerCommentAfter { get; set; }
-        public string WorkerCommentTimeAfter { get; set; }
+        public int WorkerCommentTimeAfter { get; set; }
         public string WorkerPhotoAfter { get; set; }
         public string CustomerComment { get; set; }
-        public string CustomerCommentTime { get; set; }
+        public int CustomerCommentTime { get; set; }
         public string CustomerPhoto { get; set; }
         public int? CustomerMark { get; set; }
     }

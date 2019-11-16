@@ -14,19 +14,10 @@ namespace STARAAPP.Entities
         /// </summary>
         public User()
         {
-            //UsersToLocations = new HashSet<UserToLocation>();
-            //Activities = new HashSet<Activity>();
-            //SensorsToReferencePlantData = new HashSet<SensorToReferencePlantData>();
+            OrdersToUsers = new HashSet<OrderToUser>();
         }
 
-        /// <summary>
-        /// Gets or sets the set of hubs.
-        /// </summary>
-        /// <value>
-        /// The hub to users.
-        /// </value>
-        //public virtual ICollection<UserToLocation> UsersToLocations { get; set; }
-        //public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<OrderToUser> OrdersToUsers { get; set; }
     }
 
     /// <summary>
@@ -65,6 +56,22 @@ namespace STARAAPP.Entities
         /// The password.
         /// </value>
         public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the latitude.
+        /// </summary>
+        /// <value>
+        /// The latitude.
+        /// </value>
+        public string Latitude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the longitude.
+        /// </summary>
+        /// <value>
+        /// The longitude.
+        /// </value>
+        public string Longitude { get; set; }
 
         /// <summary>
         /// Gets or sets the role identifier.

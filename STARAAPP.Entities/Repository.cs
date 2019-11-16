@@ -18,13 +18,13 @@ namespace STARAAPP.Entities
         /// <summary>
         /// The database context
         /// </summary>
-        protected readonly SkeletonKeyDBContext _dbContext;
+        protected readonly STARADBContext _dbContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Repository{T}"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
-        public Repository(SkeletonKeyDBContext dbContext)
+        public Repository(STARADBContext dbContext)
         {
             _dbContext = dbContext;
         }

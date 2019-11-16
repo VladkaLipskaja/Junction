@@ -19,14 +19,8 @@ namespace STARAAPP.Entities
             //SensorsToReferencePlantData = new HashSet<SensorToReferencePlantData>();
         }
 
-        /// <summary>
-        /// Gets or sets the set of hubs.
-        /// </summary>
-        /// <value>
-        /// The hub to users.
-        /// </value>
-        //public virtual ICollection<UserToLocation> UsersToLocations { get; set; }
-        //public virtual ICollection<Activity> Activities { get; set; }
+        public virtual User User { get; set; }
+        public virtual Order Order { get; set; }
     }
 
     /// <summary>

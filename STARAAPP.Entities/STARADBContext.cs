@@ -28,7 +28,9 @@ namespace STARAAPP.Entities
         {
             modelBuilder.HasDefaultSchema("public");
 
-            //modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new OrderToUserMap());
+            modelBuilder.ApplyConfiguration(new OrderMap());
 
             base.OnModelCreating(modelBuilder);
         }

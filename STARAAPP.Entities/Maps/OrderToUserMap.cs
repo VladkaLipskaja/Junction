@@ -23,7 +23,8 @@ namespace STARAAPP.Entities
             builder.Property(t => t.Status).HasColumnName("status");
             builder.Property(t => t.Duration).HasColumnName("duration");
 
-            //builder.HasOne(t => t.User).WithMany(t => t.HubToUsers).HasForeignKey(t => t.UserID);
+            builder.HasOne(t => t.User).WithMany(t => t.OrdersToUsers).HasForeignKey(t => t.UserID);
+            builder.HasOne(t => t.Order).WithMany(t => t.OrdersToUsers).HasForeignKey(t => t.OrderID);
         }
     }
 }
