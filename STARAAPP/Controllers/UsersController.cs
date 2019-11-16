@@ -103,9 +103,8 @@ namespace STARAAPP
         /// <returns>
         /// The token.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// The request is null.
-        /// </exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="System.ArgumentNullException">The request is null.</exception>
         [HttpPost("authentication")]
         public async Task<JsonResult> AuthenticateUserAsync([FromBody]AuthenticateUserRequest request)
         {

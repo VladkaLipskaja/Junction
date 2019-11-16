@@ -13,15 +13,17 @@ using System.Threading.Tasks;
 
 namespace STARAAPP.Services
 {
-    public class OrderService /*: IOrderService*/
+    public class OrderService : IOrderService
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<OrderToUser> _orderToUserRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public OrderService(IRepository<Order> orderRepository, IRepository<OrderToUser> orderToUserRepository)
+        public OrderService(IRepository<Order> orderRepository, IRepository<OrderToUser> orderToUserRepository, IRepository<User> userRepository)
         {
             _orderRepository = orderRepository;
             _orderToUserRepository = orderToUserRepository;
+            _userRepository = userRepository;
         }
 
         public Task AddOrderAsync(OrderDto order, int reporterId)
@@ -63,19 +65,21 @@ namespace STARAAPP.Services
             return order;
         }
 
-        //public async Task<List<Order>> GetOrdersAsync(int userId, int roleId)
-        //{
-        //    List<Order> orders;
+        public async Task<List<Order>> GetOrdersAsync(int userId)
+        {
+            var user = (await _userRepository.GetAsync(u => u.ID == userId)).FirstOrDefault();
 
-        //    switch ((UserRoleType)roleId)
-        //    {
-        //        case UserRoleType.Worker:
-        //            var orderIds = (await _orderToUserRepository.GetAsync(x => x.UserID == userId)).Select(x => x.OrderID).ToList();
-        //            orders = await _orderRepository.GetAsync(x => x)
-        //    }
-
-        //    throw new NotImplementedException();
-        //}
+            switch ((UserRoleType)user.RoleId)
+            {
+                case UserRoleType.Worker:
+                    var orderIds = (await _orderToUserRepository.GetAsync(x => x.UserID == userId)).Select(x => x.OrderID).ToList();
+                    return (await _orderRepository.GetAsync(x => orderIds.Contains(x.ID))).ToList();
+                case UserRoleType.Customer:
+                    return (await _orderRepository.GetAsync(x => x.ReporterID == userId)).ToList();
+                default:
+                    return (await _orderRepository.ListAllAsync()).ToList();
+            }
+        }
 
         public async Task UpdateOrderAsync(OrderDto order)
         {
