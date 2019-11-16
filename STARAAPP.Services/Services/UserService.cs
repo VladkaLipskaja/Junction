@@ -83,7 +83,7 @@ namespace STARAAPP.Services
         /// <exception cref="UserException">
         /// Invalid credentials.
         /// </exception>
-        public async Task<string> AuthenticateUserAsync(string username, string password)
+        public async Task<UserLoginDto> AuthenticateUserAsync(string username, string password)
         {
             User user = (await _userRepository.GetAsync(u => u.Email == username)).FirstOrDefault();
 
@@ -101,7 +101,13 @@ namespace STARAAPP.Services
 
             string token = _securityService.GetToken(user.ID);
 
-            return token;
+            var info = new UserLoginDto
+            {
+                Token = token,
+                RoleId = user.RoleId
+            };
+
+            return info;
         }
 
         /// <summary>

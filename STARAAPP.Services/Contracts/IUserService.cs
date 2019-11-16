@@ -38,7 +38,7 @@ namespace STARAAPP.Services
         /// <exception cref="UserException">
         /// Invalid credentials.
         /// </exception>
-        Task<string> AuthenticateUserAsync(string username, string password);
+        Task<UserLoginDto> AuthenticateUserAsync(string username, string password);
 
         /// <summary>
         /// Gets the user data asynchronously.

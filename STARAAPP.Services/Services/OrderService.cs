@@ -16,13 +16,15 @@ namespace STARAAPP.Services
     public class OrderService /*: IOrderService*/
     {
         private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<OrderToUser> _orderToUserRepository;
 
-        public OrderService(IRepository<Order> orderRepository)
+        public OrderService(IRepository<Order> orderRepository, IRepository<OrderToUser> orderToUserRepository)
         {
             _orderRepository = orderRepository;
+            _orderToUserRepository = orderToUserRepository;
         }
 
-        public Task AddOrderAsync(OrderDto order)
+        public Task AddOrderAsync(OrderDto order, int reporterId)
         {
             var newOrder = new Order
             {
@@ -42,7 +44,8 @@ namespace STARAAPP.Services
                 WorkerCommentAfter = order.WorkerCommentAfter,
                 WorkerCommentBefore = order.WorkerCommentBefore,
                 WorkerCommentTimeBefore = order.WorkerCommentTimeBefore,
-                WorkerCommentTimeAfter = order.WorkerCommentTimeAfter
+                WorkerCommentTimeAfter = order.WorkerCommentTimeAfter,
+                ReporterID = reporterId
             };
 
             return _orderRepository.AddAsync(newOrder);
@@ -60,10 +63,19 @@ namespace STARAAPP.Services
             return order;
         }
 
-        public Task<List<Order>> GetOrdersAsync(int userId, int roleId)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<List<Order>> GetOrdersAsync(int userId, int roleId)
+        //{
+        //    List<Order> orders;
+
+        //    switch ((UserRoleType)roleId)
+        //    {
+        //        case UserRoleType.Worker:
+        //            var orderIds = (await _orderToUserRepository.GetAsync(x => x.UserID == userId)).Select(x => x.OrderID).ToList();
+        //            orders = await _orderRepository.GetAsync(x => x)
+        //    }
+
+        //    throw new NotImplementedException();
+        //}
 
         public async Task UpdateOrderAsync(OrderDto order)
         {
@@ -91,6 +103,8 @@ namespace STARAAPP.Services
             existingOrder.WorkerCommentBefore = order.WorkerCommentBefore;
             existingOrder.WorkerCommentTimeBefore = order.WorkerCommentTimeBefore;
             existingOrder.WorkerCommentTimeAfter = order.WorkerCommentTimeAfter;
+
+            await _orderRepository.UpdateAsync(existingOrder);
         }
     }
 }

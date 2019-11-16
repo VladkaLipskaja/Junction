@@ -78,11 +78,12 @@ namespace STARAAPP
 
                 await _userService.RegisterUserAsync(user);
 
-                string token = await _userService.AuthenticateUserAsync(request.Login, request.Password);
+                var info = await _userService.AuthenticateUserAsync(request.Login, request.Password);
 
                 RegisterUserResponse response = new RegisterUserResponse
                 {
-                    Token = token,
+                    Token = info.Token,
+                    RoleId = info.RoleId
                 };
 
                 return this.JsonApi(response);
@@ -117,11 +118,12 @@ namespace STARAAPP
 
             try
             {
-                string token = await _userService.AuthenticateUserAsync(request.Login, request.Password);
+                var info  = await _userService.AuthenticateUserAsync(request.Login, request.Password);
 
                 AuthenticateUserResponse response = new AuthenticateUserResponse
                 {
-                    Token = token,
+                    Token = info.Token,
+                    RoleId = info.RoleId
                 };
 
                 return this.JsonApi(response);

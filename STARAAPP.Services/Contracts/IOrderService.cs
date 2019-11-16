@@ -13,7 +13,7 @@ namespace STARAAPP.Services
 {
     public interface IOrderService
     {
-        Task AddOrderAsync(OrderDto order);
+        Task AddOrderAsync(OrderDto order, int reporterId);
         Task UpdateOrderAsync();
         Task<Order> GetOrderByIdAsync(int id);
         Task<List<Order>> GetOrdersAsync(int id);
