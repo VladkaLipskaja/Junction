@@ -106,7 +106,7 @@ namespace STARAAPP
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="System.ArgumentNullException">The request is null.</exception>
         [HttpPost("authentication")]
-        public async Task<JsonResult> AuthenticateUserAsync([FromBody]AuthenticateUserRequest request)
+        public async Task<JsonResult> AuthenticateUser([FromBody]AuthenticateUserRequest request)
         {
             Console.WriteLine($"POST: api/users/authentication, login: {request.Login}, password: {request.Password}");
 
@@ -117,7 +117,7 @@ namespace STARAAPP
 
             try
             {
-                var info  = await _userService.AuthenticateUserAsync(request.Login, request.Password);
+                var info = await _userService.AuthenticateUserAsync(request.Login, request.Password);
 
                 AuthenticateUserResponse response = new AuthenticateUserResponse
                 {
@@ -131,6 +131,23 @@ namespace STARAAPP
             {
                 return this.JsonApi(exception);
             }
+        }
+
+        [HttpGet("workers")]
+        public async Task<JsonResult> GetWorkers()
+        {
+            var workers = await _userService.GetWorkersAsync();
+
+            GetWorkersResponse response = new GetWorkersResponse
+            {
+                Workers = workers.Select(x => new GetWorkersResponse.Worker
+                {
+                    Email = x.Email,
+                    ID = x.ID
+                }).ToList()
+            };
+
+            return this.JsonApi(response);
         }
     }
 }

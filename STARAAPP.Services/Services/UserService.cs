@@ -6,6 +6,7 @@
 
 using STARAAPP.Entities;
 using STARAAPP.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -130,6 +131,13 @@ namespace STARAAPP.Services
             }
 
             return user;
+        }
+
+        public async Task<List<User>> GetWorkersAsync()
+        {
+            var workers = (await _userRepository.GetAsync(u => u.RoleId == (int)UserRoleType.Worker));
+
+            return workers.ToList();
         }
     }
 }

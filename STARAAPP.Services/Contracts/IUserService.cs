@@ -6,6 +6,7 @@
 
 using STARAAPP.Entities;
 using STARAAPP.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace STARAAPP.Services
@@ -51,5 +52,7 @@ namespace STARAAPP.Services
         /// Invalid user id.
         /// </exception>
         Task<User> GetUserDataAsync(int id);
+
+        Task<List<User>> GetWorkersAsync();
     }
 }
