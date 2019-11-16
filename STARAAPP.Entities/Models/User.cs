@@ -15,9 +15,11 @@ namespace STARAAPP.Entities
         public User()
         {
             OrdersToUsers = new HashSet<OrderToUser>();
+            Orders = new HashSet<Order>();
         }
 
         public virtual ICollection<OrderToUser> OrdersToUsers { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 
     /// <summary>

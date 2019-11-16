@@ -1,38 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace STARAAPP.Entities
+﻿namespace STARAAPP.Models
 {
-    /// <summary>
-    /// Order entity class.
-    /// </summary>
-    public class Order : OrderBase
+    public class OrderDto
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="User"/> class.
-        /// </summary>
-        public Order()
-        {
-            OrdersToUsers = new HashSet<OrderToUser>();
-        }
-
-        public virtual ICollection<OrderToUser> OrdersToUsers { get; set; }
-
-        public virtual User User { get; set; }
-    }
-
-    /// <summary>
-    /// User entity base class.
-    /// </summary>
-    public class OrderBase
-    {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
         public int ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

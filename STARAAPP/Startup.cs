@@ -81,7 +81,6 @@ namespace STARAAPP
                     { "Bearer", Enumerable.Empty<string>() }
                 });
             });
-
         }
 
 

@@ -40,8 +40,9 @@ namespace STARAAPP.Entities
             builder.Property(t => t.CustomerPhoto).HasColumnName("customerphoto");
             builder.Property(t => t.CustomerMark).HasColumnName("customermark");
             builder.Property(t => t.CustomerCommentTime).HasColumnName("customercommenttime");
+            builder.Property(t => t.ReporterID).HasColumnName("reporterid");
 
-            //builder.HasOne(t => t.User).WithMany(t => t.HubToUsers).HasForeignKey(t => t.UserID);
+            builder.HasOne(t => t.User).WithMany(t => t.Orders).HasForeignKey(t => t.ReporterID);
         }
     }
 }
