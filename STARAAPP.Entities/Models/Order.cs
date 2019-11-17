@@ -43,8 +43,8 @@ namespace STARAAPP.Entities
         public string Comments { get; set; }
         public bool IsAssigned { get; set; }
         public decimal? Cost { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public string WorkerCommentBefore { get; set; }
         public int WorkerCommentTimeBefore { get; set; }
         public string WorkerPhotoBefore { get; set; }

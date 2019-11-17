@@ -64,6 +64,7 @@ namespace STARAAPP
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ISecurityService, SecurityService>();
 
             services.AddSwaggerGen(c =>
