@@ -26,7 +26,7 @@ namespace STARAAPP.Services
             _userRepository = userRepository;
         }
 
-        public Task AddOrderAsync(OrderDto order, int reporterId)
+        public async Task AddOrderAsync(OrderDto order, int reporterId)
         {
             var newOrder = new Order
             {
@@ -50,12 +50,34 @@ namespace STARAAPP.Services
                 ReporterID = reporterId
             };
 
-            return _orderRepository.AddAsync(newOrder);
+            OrderToUser orderToUser = null;
+
+            if (order.WorkerID != null)
+            {
+                newOrder.IsAssigned = true;
+
+                orderToUser = new OrderToUser
+                {
+                    UserID = order.WorkerID.Value,
+                    TimeStart = order.TimeFrom,
+                    Duration = order.Duration,
+                    Status = order.Status
+                };
+            }
+
+            await _orderRepository.AddAsync(newOrder);
+
+            if (order.WorkerID != null)
+            {
+                orderToUser.OrderID = newOrder.ID;
+
+                await _orderToUserRepository.AddAsync(orderToUser);
+            }
         }
 
         public async Task<Order> GetOrderByIdAsync(int id)
         {
-           var order = (await _orderRepository.GetAsync(x => x.ID == id)).FirstOrDefault();
+            var order = (await _orderRepository.GetAsync(x => x.ID == id)).FirstOrDefault();
 
             if (order == null)
             {
@@ -107,6 +129,40 @@ namespace STARAAPP.Services
             existingOrder.WorkerCommentBefore = order.WorkerCommentBefore;
             existingOrder.WorkerCommentTimeBefore = order.WorkerCommentTimeBefore;
             existingOrder.WorkerCommentTimeAfter = order.WorkerCommentTimeAfter;
+
+            var orderToUser = (await _orderToUserRepository.GetAsync(x => x.OrderID == order.ID)).FirstOrDefault();
+
+            if (orderToUser != null)
+            {
+                if (order.WorkerID == null)
+                {
+                   await _orderToUserRepository.DeleteAsync(orderToUser);
+                }
+                else
+                {
+                    orderToUser.UserID = order.WorkerID.Value;
+                    orderToUser.TimeStart = order.TimeFrom;
+                    orderToUser.Duration = order.Duration;
+                    orderToUser.Status = order.Status;
+
+                    await _orderToUserRepository.UpdateAsync(orderToUser);
+                }
+            }
+            else if (order.WorkerID != null)
+            {
+                orderToUser = new OrderToUser
+                {
+                    UserID = order.WorkerID.Value,
+                    TimeStart = order.TimeFrom,
+                    Duration = order.Duration,
+                    Status = order.Status,
+                    OrderID = order.ID
+                };
+
+                await _orderToUserRepository.AddAsync(orderToUser);
+            }
+
+            existingOrder.IsAssigned = order.WorkerID != null;
 
             await _orderRepository.UpdateAsync(existingOrder);
         }

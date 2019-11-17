@@ -38,6 +38,6 @@ namespace STARAAPP.Entities
         public int OrderID { get; set; }
         public int TimeStart { get; set; }
         public int Status { get; set; }
-        public int Duration { get; set; }
+        public int? Duration { get; set; }
     }
 }

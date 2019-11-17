@@ -24,5 +24,8 @@
         public int CustomerCommentTime { get; set; }
         public string CustomerPhoto { get; set; }
         public int? CustomerMark { get; set; }
+        public int? WorkerID { get; set; }
+        public int? Duration { get; set; }
+        public int Status { get; set; }
     }
 }

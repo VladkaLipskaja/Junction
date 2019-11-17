@@ -154,7 +154,10 @@ namespace STARAAPP.Controllers
                     WorkerCommentTimeAfter = request.WorkerCommentTimeAfter,
                     WorkerCommentTimeBefore = request.WorkerCommentTimeBefore,
                     WorkerPhotoAfter = request.WorkerPhotoAfter,
-                    WorkerPhotoBefore = request.WorkerPhotoBefore
+                    WorkerPhotoBefore = request.WorkerPhotoBefore,
+                    WorkerID = request.WorkerID,
+                    Duration = request.Duration,
+                    Status = request.Status
                 };
 
                 await _orderService.AddOrderAsync(order, userId);
@@ -201,7 +204,11 @@ namespace STARAAPP.Controllers
                     WorkerCommentTimeAfter = request.WorkerCommentTimeAfter,
                     WorkerCommentTimeBefore = request.WorkerCommentTimeBefore,
                     WorkerPhotoAfter = request.WorkerPhotoAfter,
-                    WorkerPhotoBefore = request.WorkerPhotoBefore
+                    WorkerPhotoBefore = request.WorkerPhotoBefore,
+
+                    WorkerID = request.WorkerID,
+                    Duration = request.Duration,
+                    Status = request.Status
                 };
 
                 await _orderService.UpdateOrderAsync(order);
