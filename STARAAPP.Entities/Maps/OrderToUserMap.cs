@@ -15,7 +15,7 @@ namespace STARAAPP.Entities
             builder.HasKey(t => new { t.UserID, t.OrderID, t.TimeStart });
 
             // Properties
-            builder.ToTable("orderstousers");
+            builder.ToTable("userstoorders");
 
             builder.Property(t => t.UserID).HasColumnName("userid");
             builder.Property(t => t.OrderID).HasColumnName("orderid");
